@@ -11,7 +11,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.6.0",
+    "@ant-design/nextjs-registry": "^1.0.2",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@repo/ui": "*",
+    "antd": "^5.23.4",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
