@@ -42,3 +42,65 @@ pnpm db:push
 
 # Run development server
 pnpm dev
+
+📁 Project Structure
+
+apps/
+  ├── web/             # Next.js frontend
+  └── docs/            # Documentation site
+packages/
+  ├── ui/             # Shared UI components
+  ├── database/       # Database schema & migrations
+  ├── config/         # Shared configurations
+  └── tsconfig/       # TypeScript configurations
+
+  🚄 Development Commands
+
+# Run development server
+pnpm dev
+
+# Build all apps
+pnpm build
+
+# Run tests
+pnpm test
+
+# Lint code
+pnpm lint
+
+# Format code
+pnpm format
+
+🔧 Environment Variables
+
+DATABASE_URL="postgresql://..."
+NEXTAUTH_SECRET="your-secret"
+NEXTAUTH_URL="http://localhost:3000"
+
+🧪 Testing
+# Run unit tests
+pnpm test
+
+# Run e2e tests
+pnpm test:e2e
+
+📈 Performance
+
+
+Optimized builds with Turborepo
+Server-side rendering for better SEO
+Automatic code splitting
+Image optimization
+API route optimization
+🤝 Contributing
+Fork the repository
+Create feature branch (git checkout -b feature/amazing-feature)
+Commit changes (git commit -m 'Add amazing feature')
+Push to branch (git push origin feature/amazing-feature)
+Open Pull Request
+📄 License
+MIT License
+
+👥 Authors
+Sagar Pednekar(@sagarpednekar)
+Made with ❤️ using Next.js and Turborepo 
