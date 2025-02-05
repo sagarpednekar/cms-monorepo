@@ -44,7 +44,9 @@ pnpm db:push
 pnpm dev
 ```
 
-📁 Project Structure
+##📁 Project Structure
+
+```bash
 
 apps/
   ├── web/             # Next.js frontend
@@ -55,8 +57,11 @@ packages/
   ├── config/         # Shared configurations
   └── tsconfig/       # TypeScript configurations
 
-  🚄 Development Commands
+```
+###  🚄 Development Commands
 
+
+```bash
 # Run development server
 pnpm dev
 
@@ -71,37 +76,44 @@ pnpm lint
 
 # Format code
 pnpm format
+```
 
-🔧 Environment Variables
+## 🔧 Environment Variables
 
+```bash
 DATABASE_URL="postgresql://..."
 NEXTAUTH_SECRET="your-secret"
 NEXTAUTH_URL="http://localhost:3000"
 
-🧪 Testing
+```
+
+## 🧪 Testing
+```bash
 # Run unit tests
 pnpm test
 
 # Run e2e tests
 pnpm test:e2e
+```
 
-📈 Performance
+## 📈 Performance
 
+- Optimized builds with Turborepo
+- Server-side rendering for better SEO
+- Automatic code splitting
+- Image optimization
+- API route optimization
+## 🤝 Contributing
+- Fork the repository
+- Create feature branch (git checkout -b feature/- amazing-feature)
+- Commit changes (git commit -m 'Add amazing feature')
+-  Push to branch (git push origin feature/amazing-feature)
+-  Open Pull Request
 
-Optimized builds with Turborepo
-Server-side rendering for better SEO
-Automatic code splitting
-Image optimization
-API route optimization
-🤝 Contributing
-Fork the repository
-Create feature branch (git checkout -b feature/amazing-feature)
-Commit changes (git commit -m 'Add amazing feature')
-Push to branch (git push origin feature/amazing-feature)
-Open Pull Request
-📄 License
+## 📄 License
 MIT License
 
-👥 Authors
-Sagar Pednekar(@sagarpednekar)
+## 👥 Authors
+- Sagar Pednekar(@sagarpednekar)
+
 Made with ❤️ using Next.js and Turborepo 
