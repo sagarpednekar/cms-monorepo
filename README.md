@@ -42,6 +42,7 @@ pnpm db:push
 
 # Run development server
 pnpm dev
+```
 
 📁 Project Structure
 
