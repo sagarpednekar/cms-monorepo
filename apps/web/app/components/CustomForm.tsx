@@ -1,5 +1,23 @@
+"use client";
+
 import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import Title from "antd/es/typography/Title";
+
+type FormFields = {
+  book_name: string;
+  sthana: string;
+  chapter_number: string;
+  single_or_combination_drug: string;
+  formulation_as_a_single_drug: string;
+  formulation_as_combination: string;
+  name_of_the_combination: string;
+  uses_as_single_drug: string;
+  uses_as_combination: string;
+  drug_name: string;
+  sanskrit_name: string;
+  latin_name: string;
+};
 
 export default function CustomForm() {
   const initialFormValues = {
@@ -13,14 +31,29 @@ export default function CustomForm() {
     uses_as_single_drug: "NA",
     uses_as_combination: "NA",
   };
+
+  const [form] = Form.useForm<FormFields>();
+
+  console.log("form", form);
+
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button type="primary"> Save </Button>
-      </div>
-
-      <h1>Create an entry</h1>
-      <Form layout="vertical" initialValues={initialFormValues}>
+      <Title level={2}>Create an entry</Title>
+      <Form
+        layout="vertical"
+        initialValues={initialFormValues}
+        onSubmitCapture={(e) => {
+          e.preventDefault();
+          console.log("form", form.getFieldsValue());
+        }}
+        onError={(error) => console.log("error", error)}
+        form={form}
+      >
+        <Form.Item className="flex justify-end">
+          <Button type="primary" htmlType="submit">
+            Save
+          </Button>
+        </Form.Item>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item name="drug_name" label="Drug Name(As per Reference)">

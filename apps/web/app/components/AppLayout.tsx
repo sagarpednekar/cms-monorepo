@@ -3,16 +3,17 @@ import { ReactNode, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  PieChartOutlined,
+  SettingFilled,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
+import { useRouter } from "next/navigation";
 
 const { Header, Sider, Content } = Layout;
 
 export default function AppLayout({ children }: { children: ReactNode }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const router = useRouter()
+  const [collapsed, setCollapsed] = useState(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -28,18 +29,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
           items={[
             {
               key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
+              icon: <PieChartOutlined />,
+              label: "Dashboard",
+              onClick: () => router.push("/"),
             },
             {
               key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
+              icon: <SettingFilled />,
+              label: "Settings",
             },
           ]}
         />

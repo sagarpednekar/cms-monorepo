@@ -1,3 +1,28 @@
-body{
+body {
   margin: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+.flex-col {
+  flex-direction: row;
+}
+
+.inline-block {
+  display: inline-block;
+}
+.demo-logo-vertical {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, .2);
+  border-radius: 6px;
 }
