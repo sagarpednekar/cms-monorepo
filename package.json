@@ -19,5 +19,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@ant-design/icons": "^5.6.0",
+    "antd": "^5.23.4"
+  }
 }

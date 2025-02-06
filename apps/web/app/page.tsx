@@ -1,10 +1,12 @@
 "use client";
-import { Button } from "antd";
-// import DataTable from "./components/DataTable";
+import DataTable from "./components/DataTable";
 import styles from "./page.module.css";
-import CustomForm from "./components/CustomForm";
+
+import ButtonInput from "@repo/ui/ButtonInput";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div className={styles.page}>
       <div
@@ -14,12 +16,16 @@ export default function Home() {
           marginBottom: 16,
         }}
       >
-        <Button type="primary">Create New Entry</Button>
+        <ButtonInput
+          label="Create New Entry"
+          variant="primary"
+          onClick={() => {
+            router.push("/create-entry");
+          }}
+        />
       </div>
 
-      {/* <DataTable />
-       */}
-      <CustomForm />
+      <DataTable />
     </div>
   );
 }

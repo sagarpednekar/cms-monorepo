@@ -44,7 +44,7 @@ pnpm db:push
 pnpm dev
 ```
 
-##📁 Project Structure
+## 📁 Project Structure
 
 ```bash
 
@@ -58,8 +58,8 @@ packages/
   └── tsconfig/       # TypeScript configurations
 
 ```
-###  🚄 Development Commands
 
+### 🚄 Development Commands
 
 ```bash
 # Run development server
@@ -88,6 +88,7 @@ NEXTAUTH_URL="http://localhost:3000"
 ```
 
 ## 🧪 Testing
+
 ```bash
 # Run unit tests
 pnpm test
@@ -103,17 +104,21 @@ pnpm test:e2e
 - Automatic code splitting
 - Image optimization
 - API route optimization
+
 ## 🤝 Contributing
+
 - Fork the repository
 - Create feature branch (git checkout -b feature/- amazing-feature)
 - Commit changes (git commit -m 'Add amazing feature')
--  Push to branch (git push origin feature/amazing-feature)
--  Open Pull Request
+- Push to branch (git push origin feature/amazing-feature)
+- Open Pull Request
 
 ## 📄 License
+
 MIT License
 
 ## 👥 Authors
+
 - Sagar Pednekar(@sagarpednekar)
 
-Made with ❤️ using Next.js and Turborepo 
+Made with ❤️ using Next.js and Turborepo
