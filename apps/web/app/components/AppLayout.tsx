@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const { Header, Sider, Content } = Layout;
 
 export default function AppLayout({ children }: { children: ReactNode }) {
-  const router = useRouter()
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(true);
   const {
     token: { colorBgContainer, borderRadiusLG },
