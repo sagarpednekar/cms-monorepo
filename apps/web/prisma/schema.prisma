@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Species {
+  id                      Int    @id @default(autoincrement())
+  bookName                String @map("book_name")
+  sthana                  String @map("sthana")
+  chapterNumber           String @map("chapter_number")
+  singleOrCombinationDrug String @map("single_or_combination_drug")
+  formulationAsSingleDrug  String @map("formulation_as_a_single_drug")
+  formulationAsCombination String @map("formulation_as_combination")
+  nameOfTheCombination     String @map("name_of_the_combination")
+  usesAsSingleDrug         String @map("uses_as_single_drug")
+  usesAsCombination        String @map("uses_as_combination")
+  drugName                 String @map("drug_name")
+  sanskritName             String @map("sanskrit_name")
+  latinName                String @map("latin_name")
+  partOfPlantUsed          String @map("part_of_plant_used")
+  typeOfExtUse             String @map("type_of_ext_use")
+  parenteralRoute          String @map("parenteral_route")
+  anupana                  String
+  sahapana                 String
+  granthadikara            String
+  rogadhikara              String
+  verseNumber              String @map("verse_number")
+  remarks                  String
+}
