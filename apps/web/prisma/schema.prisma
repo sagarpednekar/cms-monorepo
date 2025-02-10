@@ -14,16 +14,17 @@ datasource db {
 }
 
 model Species {
-  id                      Int    @id @default(autoincrement())
-  bookName                String @map("book_name")
-  sthana                  String @map("sthana")
-  chapterNumber           String @map("chapter_number")
-  singleOrCombinationDrug String @map("single_or_combination_drug")
+  id                       Int    @id @default(autoincrement())
+  bookName                 String @map("book_name")
+  sthana                   String @map("sthana")
+  chapterNumber            String @map("chapter_number")
+  singleOrCombinationDrug  String @map("single_or_combination_drug")
   formulationAsSingleDrug  String @map("formulation_as_a_single_drug")
   formulationAsCombination String @map("formulation_as_combination")
   nameOfTheCombination     String @map("name_of_the_combination")
   usesAsSingleDrug         String @map("uses_as_single_drug")
   usesAsCombination        String @map("uses_as_combination")
+  useExtOrInt              String @map("use_ext_or_int")
   drugName                 String @map("drug_name")
   sanskritName             String @map("sanskrit_name")
   latinName                String @map("latin_name")
