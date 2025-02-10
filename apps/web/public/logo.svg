@@ -1,0 +1,12 @@
+<svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Square Background with Rounded Corners -->
+  <rect x="10" y="10" width="80" height="80" rx="15" ry="15" fill="#A5D6A7" stroke="#4CAF50" stroke-width="3"/>
+
+  <!-- Minimal Leaf Icon -->
+  <path d="M50 35 Q60 50, 50 65 Q40 50, 50 35" fill="none" stroke="#2E7D32" stroke-width="3"/>
+
+  <!-- CMS Text -->
+  <text x="50%" y="85%" font-family="Arial, sans-serif" font-size="16" fill="#2E7D32" text-anchor="middle" font-weight="bold">
+    CMS
+  </text>
+</svg>

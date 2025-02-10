@@ -1,79 +1,128 @@
 "use client";
 
-import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { Button, Col, Flex, Form, Input, InputNumber, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
+import axios from "axios";
 
-type FormFields = {
-  book_name: string;
+export type SpeciesSchema = {
+  bookName: string;
   sthana: string;
-  chapter_number: string;
-  single_or_combination_drug: string;
-  formulation_as_a_single_drug: string;
-  formulation_as_combination: string;
-  name_of_the_combination: string;
-  uses_as_single_drug: string;
-  uses_as_combination: string;
-  drug_name: string;
-  sanskrit_name: string;
-  latin_name: string;
+  chapterNumber: string;
+  singleOrCombinationDrug: string;
+  formulationAsASingleDrug: string;
+  formulationAsCombination: string;
+  nameOfTheCombination: string;
+  usesAsSingleDrug: string;
+  usesAsCombination: string;
+  drugName: string;
+  sanskritName: string;
+  latinName: string;
+  partOfPlantUsed: string;
+  typeOfExtUse: string;
+  parenteralRoute: string;
+  anupana: string;
+  sahapana: string;
+  granthadikara: string;
+  rogadhikara: string;
+  verseNumber: string;
+  remarks: string;
 };
+
+export interface ISpeciesSchema {
+  bookName: string;
+  sthana: string;
+  chapterNumber: string;
+  singleOrCombinationDrug: string;
+  formulationAsASingleDrug: string;
+  formulationAsCombination: string;
+  nameOfTheCombination: string;
+  usesAsSingleDrug: string;
+  usesAsCombination: string;
+  drugName: string;
+  sanskritName: string;
+  latinName: string;
+  partOfPlantUsed: string;
+  useExtOrInt: string;
+  typeOfExtUse: string;
+  parenteralRoute: string;
+  anupana: string;
+  sahapana: string;
+  granthadikara: string;
+  rogadhikara: string;
+  verseNumber: string;
+  remarks: string;
+}
 
 export default function CustomForm() {
   const initialFormValues = {
-    book_name: "Charaka Samhita",
+    bookName: "Charaka Samhita",
     sthana: "Chikitsa Sthana",
-    chapter_number: "Chapter 1",
-    single_or_combination_drug: "Single",
-    formulation_as_a_single_drug: "NA",
-    formulation_as_combination: "NA",
-    name_of_the_combination: "NA",
-    uses_as_single_drug: "NA",
-    uses_as_combination: "NA",
+    chapterNumber: "Chapter 1",
+    singleOrCombinationDrug: "Single",
+    formulationAsASingleDrug: "NA",
+    formulationAsCombination: "NA",
+    nameOfTheCombination: "NA",
+    usesAsSingleDrug: "NA",
+    usesAsCombination: "NA",
+    useExtOrInt: "INT",
   };
 
-  const [form] = Form.useForm<FormFields>();
-
-  console.log("form", form);
+  const [form] = Form.useForm<ISpeciesSchema>();
 
   return (
     <>
-      <Title level={2}>Create an entry</Title>
       <Form
         layout="vertical"
         initialValues={initialFormValues}
         onSubmitCapture={(e) => {
           e.preventDefault();
-          console.log("form", form.getFieldsValue());
+          const payload = form.getFieldsValue();
+          console.log("form", payload);
+          axios.post("/api/species", { payload }).then((res) => {
+            console.log("res", res);
+          });
         }}
         onError={(error) => console.log("error", error)}
         form={form}
       >
-        <Form.Item className="flex justify-end">
-          <Button type="primary" htmlType="submit">
-            Save
-          </Button>
-        </Form.Item>
+        <Flex
+          justify="space-between"
+          align="center"
+          style={{
+            padding: "1.5em 0",
+          }}
+        >
+          <Title level={2} style={{ margin: 0 }}>
+            Create an entry
+          </Title>
+          <Form.Item style={{ margin: 0 }}>
+            <Button type="primary" htmlType="submit" size="large">
+              Save
+            </Button>
+          </Form.Item>
+        </Flex>
+
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="drug_name" label="Drug Name(As per Reference)">
+            <Form.Item name="drugName" label="Drug Name(As per Reference)">
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="sanskrit_name" label="Sanskrit Name">
+            <Form.Item name="sanskritName" label="Sanskrit Name">
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="latin_name" label="Latin Name">
+            <Form.Item name="latinName" label="Latin Name">
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="book_name" label="Name of the Samhita">
+            <Form.Item name="bookName" label="Name of the Samhita">
               <Select>
                 {[
                   "Charaka Samhita",
@@ -114,7 +163,7 @@ export default function CustomForm() {
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="chapter_number" label="Adhyaya">
+            <Form.Item name="chapterNumber" label="Adhyaya">
               <Select>
                 {[
                   "Chapter 1",
@@ -178,12 +227,12 @@ export default function CustomForm() {
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="verse_number" label="Sutra">
-              <InputNumber size="large" />
+            <Form.Item name="verseNumber" label="Sutra">
+              <InputNumber size="large" style={{ width: "100%" }} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="part_of_plant_used" label="Part of Plant Used">
+            <Form.Item name="partOfPlantUsed" label="Part of Plant Used">
               <Input />
             </Form.Item>
           </Col>
@@ -191,7 +240,7 @@ export default function CustomForm() {
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item
-              name="single_or_combination_drug"
+              name="singleOrCombinationDrug"
               label="Single/Combination drug?"
             >
               <Select>
@@ -207,7 +256,7 @@ export default function CustomForm() {
           </Col>
           <Col xs={24} sm={12}>
             <Form.Item
-              name="formulation_as_a_single_drug"
+              name="formulationAsASingleDrug"
               label="Formulation as a single drug"
             >
               <Input />
@@ -217,7 +266,7 @@ export default function CustomForm() {
         <Row gutter={16}>
           <Col xs={24} sm={12}>
             <Form.Item
-              name="formulation_as_combination"
+              name="formulationAsCombination"
               label="Formulation as a combination drug"
             >
               <Input />
@@ -225,7 +274,7 @@ export default function CustomForm() {
           </Col>
           <Col xs={24} sm={12}>
             <Form.Item
-              name="name_of_the_combination"
+              name="nameOfTheCombination"
               label="Name of the combination"
             >
               <Input />
@@ -234,19 +283,19 @@ export default function CustomForm() {
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="uses_as_single_drug" label="Uses as single drug">
+            <Form.Item name="usesAsSingleDrug" label="Uses as single drug">
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="uses_as_combination" label="Uses as combination">
+            <Form.Item name="usesAsCombination" label="Uses as combination">
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="use_ext_or_int" label="Use- INT/EXT">
+            <Form.Item name="useExtOrInt" label="Use- INT/EXT">
               <Select>
                 {["INT", "EXT"].map((type, index) => (
                   <Select.Option value={type} key={index}>
@@ -257,14 +306,14 @@ export default function CustomForm() {
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="type_of_ext_use" label="Type of EXT use">
+            <Form.Item name="typeOfExtUse" label="Type of EXT use">
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="parenteral_route" label="Parenteral Route">
+            <Form.Item name="parenteralRoute" label="Parenteral Route">
               <Input />
             </Form.Item>
           </Col>

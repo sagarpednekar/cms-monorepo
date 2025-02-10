@@ -21,7 +21,10 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
+        <div style={{ color: "white", fontSize: "24px", padding: "16px" }}>
+          {collapsed ? "PSC" : "Pilot Study CMS"}
+        </div>
+
         <Menu
           theme="dark"
           mode="inline"
