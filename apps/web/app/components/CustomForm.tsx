@@ -10,7 +10,7 @@ export type SpeciesSchema = {
   sthana: string;
   chapterNumber: string;
   singleOrCombinationDrug: string;
-  formulationAsASingleDrug: string;
+  formulationAsSingleDrug: string;
   formulationAsCombination: string;
   nameOfTheCombination: string;
   usesAsSingleDrug: string;
@@ -34,7 +34,7 @@ export interface ISpeciesSchema {
   sthana: string;
   chapterNumber: string;
   singleOrCombinationDrug: string;
-  formulationAsASingleDrug: string;
+  formulationAsSingleDrug: string;
   formulationAsCombination: string;
   nameOfTheCombination: string;
   usesAsSingleDrug: string;
@@ -54,13 +54,26 @@ export interface ISpeciesSchema {
   remarks: string;
 }
 
+const stringifyFormValues = (
+  values: Record<string, any>
+): Record<string, string> => {
+  const stringified: Record<string, string> = {};
+
+  Object.entries(values).forEach(([key, value]) => {
+    stringified[key] =
+      value === null || value === undefined ? "NA" : String(value);
+  });
+
+  return stringified;
+};
+
 export default function CustomForm() {
   const initialFormValues = {
     bookName: "Charaka Samhita",
     sthana: "Chikitsa Sthana",
     chapterNumber: "Chapter 1",
     singleOrCombinationDrug: "Single",
-    formulationAsASingleDrug: "NA",
+    formulationAsSingleDrug: "NA",
     formulationAsCombination: "NA",
     nameOfTheCombination: "NA",
     usesAsSingleDrug: "NA",
@@ -77,9 +90,10 @@ export default function CustomForm() {
         initialValues={initialFormValues}
         onSubmitCapture={(e) => {
           e.preventDefault();
-          const payload = form.getFieldsValue();
-          console.log("form", payload);
-          axios.post("/api/species", { payload }).then((res) => {
+          let formValues = form.getFieldsValue();
+          const stringifiedValues = stringifyFormValues(formValues);
+
+          axios.post("/api/species", stringifiedValues).then((res) => {
             console.log("res", res);
           });
         }}
@@ -249,14 +263,14 @@ export default function CustomForm() {
                     <Select.Option value={type} key={index}>
                       {type}
                     </Select.Option>
-                  ),
+                  )
                 )}
               </Select>
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
             <Form.Item
-              name="formulationAsASingleDrug"
+              name="formulationAsSingleDrug"
               label="Formulation as a single drug"
             >
               <Input />
