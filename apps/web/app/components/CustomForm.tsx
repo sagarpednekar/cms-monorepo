@@ -30,6 +30,7 @@ export type SpeciesSchema = {
 };
 
 export interface ISpeciesSchema {
+  [key: string]: string;
   bookName: string;
   sthana: string;
   chapterNumber: string;
@@ -55,16 +56,17 @@ export interface ISpeciesSchema {
 }
 
 const stringifyFormValues = (
-  values: Record<string, any>
-): Record<string, string> => {
-  const stringified: Record<string, string> = {};
+  values: Partial<ISpeciesSchema>,
+): Record<keyof ISpeciesSchema, string> => {
+  const stringified: Partial<Record<keyof ISpeciesSchema, string>> = {};
 
-  Object.entries(values).forEach(([key, value]) => {
+  (Object.keys(values) as Array<keyof ISpeciesSchema>).forEach((key) => {
+    const value = values[key];
     stringified[key] =
-      value === null || value === undefined ? "NA" : String(value);
+      value === null || value === undefined ? "NA" : String(value).trim();
   });
 
-  return stringified;
+  return stringified as Record<keyof ISpeciesSchema, string>;
 };
 
 export default function CustomForm() {
@@ -89,13 +91,17 @@ export default function CustomForm() {
         layout="vertical"
         initialValues={initialFormValues}
         onSubmitCapture={(e) => {
-          e.preventDefault();
-          let formValues = form.getFieldsValue();
-          const stringifiedValues = stringifyFormValues(formValues);
+          try {
+            e.preventDefault();
+            const formValues = form.getFieldsValue();
+            const stringifiedValues = stringifyFormValues(formValues);
 
-          axios.post("/api/species", stringifiedValues).then((res) => {
-            console.log("res", res);
-          });
+            axios.post("/api/species", stringifiedValues).then((res) => {
+              console.log("res", res);
+            });
+          } catch (error) {
+            console.log("error", error);
+          }
         }}
         onError={(error) => console.log("error", error)}
         form={form}
@@ -263,7 +269,7 @@ export default function CustomForm() {
                     <Select.Option value={type} key={index}>
                       {type}
                     </Select.Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>

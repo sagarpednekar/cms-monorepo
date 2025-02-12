@@ -10,7 +10,6 @@
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit",
     "postinstall": "prisma generate"
-    
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.0",
@@ -18,8 +17,11 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@prisma/client": "6.3.1",
     "@repo/ui": "*",
+    "@types/jsonwebtoken": "^9.0.8",
     "antd": "^5.23.4",
+    "argon2": "^0.41.1",
     "axios": "^1.7.9",
+    "jsonwebtoken": "^9.0.2",
     "next": "^15.1.6",
     "prisma": "^6.3.1",
     "react": "^19.0.0",

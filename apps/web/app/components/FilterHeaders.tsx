@@ -58,7 +58,6 @@ export default function FilterHeaders({
           />
 
           <Button
-            color="green"
             type="primary"
             icon={<CheckCircleFilled />}
             size="small"
@@ -73,7 +72,7 @@ export default function FilterHeaders({
         </div>
       ) : (
         <Button
-          type="primary"
+          type="default"
           icon={<SettingFilled />}
           size="small"
           onClick={() => setShowSelection(!showSelection)}
