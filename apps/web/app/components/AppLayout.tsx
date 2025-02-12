@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,8 +22,18 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div style={{ color: "white", fontSize: "24px", padding: "16px" }}>
-          {collapsed ? "PSC" : "Pilot Study CMS"}
+        <div className="logo">
+          {/* {collapsed ? "PSC" : "Pilot Study CMS"} */}
+          <Image
+            src="/logo.png"
+            alt="Pilot Study CMS Logo"
+            height={40}
+            width={40}
+            priority
+            onError={(e) => {
+              console.error("Error loading logo:", e);
+            }}
+          />
         </div>
 
         <Menu
