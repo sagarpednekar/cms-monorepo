@@ -1,15 +1,13 @@
-import { PrismaClient } from "@prisma/client";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "../../../lib/db";
 
 // Validate JWT_SECRET
 
 const SECRET = process.env.JWT_SECRET
   ? process.env.JWT_SECRET
   : "floral-secret";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
