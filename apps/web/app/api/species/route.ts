@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const client = new PrismaClient();
+import { prisma } from "../../lib/db";
 
 export async function GET() {
-  const data = await client.species.findMany({});
+  const data = await prisma.species.findMany({});
 
   return NextResponse.json({
     result: data,
@@ -15,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    await client.species.create({
+    await prisma.species.create({
       data: body,
     });
     return NextResponse.json({ message: "success", body });

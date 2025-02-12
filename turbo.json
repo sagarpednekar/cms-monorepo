@@ -18,5 +18,5 @@
       "persistent": true
     }
   },
-  "globalEnv": ["JWT_SECRET", "DATABASE_URL"]
+  "globalEnv": ["JWT_SECRET", "DATABASE_URL","NODE_ENV"]
 }
