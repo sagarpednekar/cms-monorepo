@@ -28,10 +28,11 @@ export async function GET(req: NextRequest) {
       summary: "List fo FLowers species",
     });
   } catch (error) {
-    return NextResponse.json({
-      result: error,
-      summary: "List fo FLowers species",
-    });
+    let errorMessage = "An error occurred";
+    if (error instanceof PrismaClientValidationError) {
+      errorMessage = error.message;
+    }
+    return NextResponse.json({ message: "error", error: errorMessage });
   }
 }
 export async function POST(req: NextRequest) {

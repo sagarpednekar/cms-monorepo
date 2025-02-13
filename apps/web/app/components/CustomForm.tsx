@@ -98,15 +98,13 @@ export default function CustomForm({
             const formValues = form.getFieldsValue();
             const stringifiedValues = stringifyFormValues({
               ...formValues,
-              id: speciesIntialValues?.id,
+              ...(formMode === "update" ? { id: speciesIntialValues?.id } : {}),
             });
 
             if (formMode === "update") {
-              axios.put(`/api/species`, stringifiedValues).then((res) => {
-              });
+              axios.put(`/api/species`, stringifiedValues);
             } else {
-              axios.post("/api/species", stringifiedValues).then((res) => {
-              });
+              axios.post("/api/species", stringifiedValues);
             }
             router.push("/");
           } catch (error) {
