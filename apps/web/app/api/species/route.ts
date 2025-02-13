@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    const query = {};
 
     if (id) {
       const data = await prisma.species.findUnique({
