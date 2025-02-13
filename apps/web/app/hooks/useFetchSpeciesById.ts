@@ -3,7 +3,7 @@ import { ISpeciesSchema } from "../components/CustomForm";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 
-export default function useSpecies() {
+export default function useSpeciesById() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 

@@ -15,7 +15,7 @@ const headerOptions = columns.map((column) => ({
 export type TableDataType = ISpeciesSchema;
 
 type DataTableProps = {
-  tableData: TableDataType[];
+  tableData: TableDataType[] | undefined;
   isLoading: boolean;
 };
 export default function DataTable({ tableData, isLoading }: DataTableProps) {
@@ -64,11 +64,11 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
       </Flex>
       <Table
         columns={headers}
-        dataSource={tableData.map((item) => ({ ...item, key: item.id }))}
+        dataSource={tableData?.map((item) => ({ ...item, key: item.id }))}
         scroll={{ x: "max-content" }}
         loading={isLoading}
         pagination={
-          tableData.length > 10
+          tableData && tableData.length > 10
             ? {
                 defaultPageSize: pageSize,
                 showSizeChanger: true,
