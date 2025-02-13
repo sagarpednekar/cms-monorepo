@@ -198,7 +198,7 @@ export const chapterNumberOptions = [
   "Chapter 48",
   "Chapter 49",
   "Chapter 50",
-]
+];
 
 export const sthanaOptions = [
   "Chikitsa Sthana",
@@ -212,11 +212,11 @@ export const sthanaOptions = [
   "Sutra Sthana",
   "Uttar Tantra",
   "Vimana Sthana",
-]
+];
 
 export const bookNameOptions = [
   "Charaka Samhita",
   "Shushruta Samhita",
   "Ashtang Hridaya",
   "Ashtang Samgraha",
-]
+];

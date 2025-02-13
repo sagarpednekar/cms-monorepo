@@ -63,7 +63,7 @@ export interface ISpeciesSchema {
 }
 
 const stringifyFormValues = (
-  values: Partial<ISpeciesSchema>
+  values: Partial<ISpeciesSchema>,
 ): Record<keyof ISpeciesSchema, string> => {
   const stringified: Partial<Record<keyof ISpeciesSchema, string>> = {};
 
@@ -90,7 +90,6 @@ export default function CustomForm({
 
   if (isLoading) {
     return <div>Loading...</div>;
-   
   }
 
   return (
@@ -270,7 +269,7 @@ export default function CustomForm({
                     <Select.Option value={type} key={index}>
                       {type}
                     </Select.Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>
