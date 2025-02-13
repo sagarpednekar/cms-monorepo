@@ -22,7 +22,11 @@ export async function GET(req: NextRequest) {
         summary: "List fo FLowers species",
       });
     }
-    const data = await prisma.species.findMany(query);
+    const data = await prisma.species.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     return NextResponse.json({
       result: data,
       summary: "List fo FLowers species",
