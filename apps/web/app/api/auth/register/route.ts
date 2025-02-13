@@ -5,9 +5,6 @@ import { prisma } from "../../../lib/db";
 export async function POST(req: NextRequest) {
   try {
     const { email, password, name = "" } = await req.json();
-
-    console.log({ email, password, name });
-
     // hash password
 
     const hashedPassword = await argon2.hash(password);

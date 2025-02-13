@@ -4,6 +4,7 @@ import { Button, Col, Flex, Form, Input, InputNumber, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export type SpeciesSchema = {
   bookName: string;
@@ -53,6 +54,7 @@ export interface ISpeciesSchema {
   rogadhikara: string;
   verseNumber: string;
   remarks: string;
+  id: string;
 }
 
 const stringifyFormValues = (
@@ -69,36 +71,42 @@ const stringifyFormValues = (
   return stringified as Record<keyof ISpeciesSchema, string>;
 };
 
-export default function CustomForm() {
-  const initialFormValues = {
-    bookName: "Charaka Samhita",
-    sthana: "Chikitsa Sthana",
-    chapterNumber: "Chapter 1",
-    singleOrCombinationDrug: "Single",
-    formulationAsSingleDrug: "NA",
-    formulationAsCombination: "NA",
-    nameOfTheCombination: "NA",
-    usesAsSingleDrug: "NA",
-    usesAsCombination: "NA",
-    useExtOrInt: "INT",
-  };
-
+export default function CustomForm({
+  formMode,
+  speciesIntialValues,
+  isLoading,
+}: {
+  formMode: "create" | "update";
+  speciesIntialValues?: Partial<ISpeciesSchema>;
+  isLoading?: boolean;
+}) {
+  const router = useRouter();
   const [form] = Form.useForm<ISpeciesSchema>();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <Form
         layout="vertical"
-        initialValues={initialFormValues}
+        initialValues={speciesIntialValues}
         onSubmitCapture={(e) => {
           try {
             e.preventDefault();
             const formValues = form.getFieldsValue();
-            const stringifiedValues = stringifyFormValues(formValues);
-
-            axios.post("/api/species", stringifiedValues).then((res) => {
-              console.log("res", res);
+            const stringifiedValues = stringifyFormValues({
+              ...formValues,
+              ...(formMode === "update" ? { id: speciesIntialValues?.id } : {}),
             });
+
+            if (formMode === "update") {
+              axios.put(`/api/species`, stringifiedValues);
+            } else {
+              axios.post("/api/species", stringifiedValues);
+            }
+            router.push("/");
           } catch (error) {
             console.log("error", error);
           }
