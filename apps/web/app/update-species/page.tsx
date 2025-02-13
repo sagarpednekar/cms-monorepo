@@ -2,10 +2,10 @@
 
 import { Suspense } from "react";
 import CustomForm from "../components/CustomForm";
-import useSpecies from "../hooks/useSpecies";
+import useFetchSpeciesById from "../hooks/useFetchSpeciesById";
 
 function SpeciesForm() {
-  const { species, isLoading } = useSpecies();
+  const { species, isLoading } = useFetchSpeciesById();
 
   return (
     <CustomForm
