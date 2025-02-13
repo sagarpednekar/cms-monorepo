@@ -1,18 +1,27 @@
 "use client";
 
+import { Suspense } from "react";
 import CustomForm from "../components/CustomForm";
 import useSpecies from "../hooks/useSpecies";
 
-export default function page() {
+function SpeciesForm() {
   const { species, isLoading } = useSpecies();
 
   return (
+    <CustomForm
+      formMode="update"
+      speciesIntialValues={species}
+      isLoading={isLoading}
+    />
+  );
+}
+
+export default function page() {
+  return (
     <div>
-      <CustomForm
-        formMode="update"
-        speciesIntialValues={species}
-        isLoading={isLoading}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SpeciesForm />
+      </Suspense>
     </div>
   );
 }
