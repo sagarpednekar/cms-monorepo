@@ -57,7 +57,7 @@ export interface ISpeciesSchema {
 }
 
 const stringifyFormValues = (
-  values: Partial<ISpeciesSchema>
+  values: Partial<ISpeciesSchema>,
 ): Record<keyof ISpeciesSchema, string> => {
   const stringified: Partial<Record<keyof ISpeciesSchema, string>> = {};
 
@@ -95,17 +95,15 @@ export default function CustomForm({
           try {
             e.preventDefault();
             const formValues = form.getFieldsValue();
-            const stringifiedValues = stringifyFormValues({...formValues,id:speciesIntialValues?.id });
+            const stringifiedValues = stringifyFormValues({
+              ...formValues,
+              id: speciesIntialValues?.id,
+            });
 
             if (formMode === "update") {
-              axios
-                .put(
-                  `/api/species`,
-                  stringifiedValues
-                )
-                .then((res) => {
-                  console.log("res", res);
-                });
+              axios.put(`/api/species`, stringifiedValues).then((res) => {
+                console.log("res", res);
+              });
             } else {
               axios.post("/api/species", stringifiedValues).then((res) => {
                 console.log("res", res);
@@ -282,7 +280,7 @@ export default function CustomForm({
                     <Select.Option value={type} key={index}>
                       {type}
                     </Select.Option>
-                  )
+                  ),
                 )}
               </Select>
             </Form.Item>
@@ -381,7 +379,6 @@ export default function CustomForm({
           </Col>
         </Row>
       </Form>
-
     </>
   );
 }

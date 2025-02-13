@@ -142,7 +142,7 @@ export const columns = [
     dataIndex: "actions",
     key: "actions",
     order: 24,
-  }
+  },
 ].sort((a, b) => a.order - b.order);
 
 export const pageSize = 100;

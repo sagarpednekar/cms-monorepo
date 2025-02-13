@@ -29,7 +29,7 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
     key: "action",
     dataIndex: "action",
     order: columns.length,
-    render: (_: any, record: TableDataType) => (
+    render: (_: unknown, record: TableDataType) => (
       <Space size="middle">
         <Button
           type="primary"
@@ -76,10 +76,7 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
               }
             : false
         }
-      >
-  
-      
-      </Table>
+      ></Table>
     </Flex>
   );
 }
