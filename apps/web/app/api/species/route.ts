@@ -67,3 +67,19 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ message: "error", error: errorMessage });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const id = Number(body.id);
+
+    await prisma.species.delete({
+      where: {
+        id: id,
+      },
+    });
+    return NextResponse.json({ message: "success", body });
+  } catch (error) {
+    return NextResponse.json({ message: "error", error });
+  }
+}

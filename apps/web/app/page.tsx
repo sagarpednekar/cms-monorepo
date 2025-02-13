@@ -8,7 +8,7 @@ import useSpecies from "./hooks/useFetchSpecies";
 
 export default function Home() {
   const router = useRouter();
-  const { species: tableData, isLoading } = useSpecies();
+  const { species: tableData, isLoading, refetchApi } = useSpecies();
 
   return (
     <div className={styles.page}>
@@ -28,7 +28,11 @@ export default function Home() {
         />
       </div>
 
-      <DataTable tableData={tableData} isLoading={isLoading} />
+      <DataTable
+        tableData={tableData}
+        isLoading={isLoading}
+        refetch={refetchApi}
+      />
     </div>
   );
 }

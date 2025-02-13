@@ -54,6 +54,7 @@ export interface ISpeciesSchema {
   rogadhikara: string;
   verseNumber: string;
   remarks: string;
+  id: string;
 }
 
 const stringifyFormValues = (
@@ -102,11 +103,9 @@ export default function CustomForm({
 
             if (formMode === "update") {
               axios.put(`/api/species`, stringifiedValues).then((res) => {
-                console.log("res", res);
               });
             } else {
               axios.post("/api/species", stringifiedValues).then((res) => {
-                console.log("res", res);
               });
             }
             router.push("/");

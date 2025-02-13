@@ -7,10 +7,19 @@ export default function useSpecies() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [refetch, setRefetch] = useState<boolean>(false);
+
+  const refetchApi = () => {
+    setRefetch(true);
+  };
+
   useEffect(() => {
     axios
       .get(`/api/species`)
       .then((res) => {
+        if (refetch) {
+          setRefetch(false);
+        }
         const result = res.data.result;
         setSpecies(result);
         setIsLoading(false);
@@ -19,7 +28,7 @@ export default function useSpecies() {
         console.log("error", error);
         setIsLoading(false);
       });
-  }, []);
+  }, [refetch]);
 
-  return { isLoading, species };
+  return { isLoading, species, refetchApi };
 }

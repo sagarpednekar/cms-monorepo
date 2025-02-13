@@ -4,8 +4,9 @@ import { Button, Flex, Space, Table } from "antd";
 import { ISpeciesSchema } from "./CustomForm";
 import FilterHeaders from "./FilterHeaders";
 import { columns, pageSize } from "../config";
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const headerOptions = columns.map((column) => ({
   label: column.title,
@@ -17,13 +18,24 @@ export type TableDataType = ISpeciesSchema;
 type DataTableProps = {
   tableData: TableDataType[] | undefined;
   isLoading: boolean;
+  refetch?: () => void;
 };
-export default function DataTable({ tableData, isLoading }: DataTableProps) {
+export default function DataTable({
+  tableData,
+  isLoading,
+  refetch,
+}: DataTableProps) {
   const router = useRouter();
   const handleEdit = (record: TableDataType) => {
-    console.log("Edit record:", record);
     router.push(`/update-species?id=${record.id}`);
   };
+
+  const handleDelete = (record: TableDataType) => {
+    axios.delete(`/api/species`, { data: { id: record.id } }).then(() => {
+      if (refetch) refetch();
+    });
+  };
+
   const actionColumn = {
     title: "Action",
     key: "action",
@@ -37,6 +49,14 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
           onClick={() => handleEdit(record)}
         >
           Edit
+        </Button>
+        <Button
+          type="primary"
+          danger
+          icon={<DeleteOutlined />}
+          onClick={() => handleDelete(record)}
+        >
+          Delete
         </Button>
       </Space>
     ),

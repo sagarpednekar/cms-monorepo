@@ -19,7 +19,6 @@ export default function Login() {
   const router = useRouter();
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     try {
-      console.log("Success:", values);
       setIsLoading(true);
       const result = await axios.post("/api/auth/login", {
         email: values.username,
