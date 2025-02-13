@@ -1,13 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../lib/db";
+import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
-export async function GET() {
-  const data = await prisma.species.findMany({});
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    let query = {};
 
-  return NextResponse.json({
-    result: data,
-    summary: "List fo FLowers species",
-  });
+    if (id) {
+      let data = await prisma.species.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+      });
+
+      const data1 = { ...data, verseNumber: String(data?.verseNumber) };
+
+      return NextResponse.json({
+        result: data1,
+        summary: "List fo FLowers species",
+      });
+    }
+    const data = await prisma.species.findMany(query);
+    return NextResponse.json({
+      result: data,
+      summary: "List fo FLowers species",
+    });
+  } catch (error) {
+    return NextResponse.json({
+      result: error,
+      summary: "List fo FLowers species",
+    });
+  }
 }
 export async function POST(req: NextRequest) {
   try {
@@ -19,5 +44,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "success", body });
   } catch (error) {
     return NextResponse.json({ message: "error", error });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const body = await req.json();
+    body.id = Number(body.id);
+
+    await prisma.species.update({
+      where: {
+        id: Number(body.id),
+      },
+      data: body,
+    });
+    return NextResponse.json({ message: "success", body });
+  } catch (error) {
+    let errorMessage = "An error occurred";
+    if (error instanceof PrismaClientValidationError) {
+      errorMessage = error.message;
+    }
+    return NextResponse.json({ message: "error", error: errorMessage });
   }
 }

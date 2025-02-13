@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
-import { Flex, Table } from "antd";
+import { Button, Flex, Space, Table } from "antd";
 import { ISpeciesSchema } from "./CustomForm";
 import FilterHeaders from "./FilterHeaders";
 import { columns, pageSize } from "../config";
+import { EditOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const headerOptions = columns.map((column) => ({
   label: column.title,
@@ -17,12 +19,37 @@ type DataTableProps = {
   isLoading: boolean;
 };
 export default function DataTable({ tableData, isLoading }: DataTableProps) {
-  const [headers, setHeaders] = useState([...columns.slice(0, 5)]);
-
+  const router = useRouter();
+  const handleEdit = (record: TableDataType) => {
+    console.log("Edit record:", record);
+    router.push(`/update-species?id=${record.id}`);
+  };
+  const actionColumn = {
+    title: "Action",
+    key: "action",
+    dataIndex: "action",
+    order: columns.length,
+    render: (_: any, record: TableDataType) => (
+      <Space size="middle">
+        <Button
+          type="primary"
+          icon={<EditOutlined />}
+          onClick={() => handleEdit(record)}
+        >
+          Edit
+        </Button>
+      </Space>
+    ),
+  };
+  const [headers, setHeaders] = useState([
+    ...columns.slice(0, 5),
+    actionColumn,
+  ]);
   const filterTableData = (selectedHeaders: string[]) => {
-    setHeaders(
-      columns.filter((header) => selectedHeaders.includes(header.dataIndex)),
-    );
+    setHeaders([
+      ...columns.filter((header) => selectedHeaders.includes(header.dataIndex)),
+      actionColumn,
+    ]);
   };
 
   return (
@@ -37,7 +64,7 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
       </Flex>
       <Table
         columns={headers}
-        dataSource={tableData}
+        dataSource={tableData.map((item) => ({ ...item, key: item.id }))}
         scroll={{ x: "max-content" }}
         loading={isLoading}
         pagination={
@@ -49,7 +76,10 @@ export default function DataTable({ tableData, isLoading }: DataTableProps) {
               }
             : false
         }
-      />
+      >
+  
+      
+      </Table>
     </Flex>
   );
 }
