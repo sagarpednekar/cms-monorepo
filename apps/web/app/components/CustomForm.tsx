@@ -5,6 +5,11 @@ import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import {
+  bookNameOptions,
+  chapterNumberOptions,
+  sthanaOptions,
+} from "../config";
 
 export type SpeciesSchema = {
   bookName: string;
@@ -58,7 +63,7 @@ export interface ISpeciesSchema {
 }
 
 const stringifyFormValues = (
-  values: Partial<ISpeciesSchema>,
+  values: Partial<ISpeciesSchema>
 ): Record<keyof ISpeciesSchema, string> => {
   const stringified: Partial<Record<keyof ISpeciesSchema, string>> = {};
 
@@ -85,6 +90,7 @@ export default function CustomForm({
 
   if (isLoading) {
     return <div>Loading...</div>;
+   
   }
 
   return (
@@ -92,10 +98,13 @@ export default function CustomForm({
       <Form
         layout="vertical"
         initialValues={speciesIntialValues}
-        onSubmitCapture={(e) => {
+        onSubmitCapture={async (e) => {
           try {
             e.preventDefault();
+            await form.validateFields();
+
             const formValues = form.getFieldsValue();
+
             const stringifiedValues = stringifyFormValues({
               ...formValues,
               ...(formMode === "update" ? { id: speciesIntialValues?.id } : {}),
@@ -124,40 +133,59 @@ export default function CustomForm({
           <Title level={2} style={{ margin: 0 }}>
             Create an entry
           </Title>
-          <Form.Item style={{ margin: 0 }}>
+          {/* <Form.Item style={{ margin: 0 }}>
             <Button type="primary" htmlType="submit" size="large">
               Save
             </Button>
-          </Form.Item>
+          </Form.Item> */}
         </Flex>
 
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="drugName" label="Drug Name(As per Reference)">
+            <Form.Item
+              name="drugName"
+              label="Drug Name(As per Reference)"
+              rules={[
+                { required: true, message: "Please enter the drug name" },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="sanskritName" label="Sanskrit Name">
+            <Form.Item
+              name="sanskritName"
+              label="Sanskrit Name"
+              rules={[
+                { required: true, message: "Please enter the Sanskrit name" },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="latinName" label="Latin Name">
+            <Form.Item
+              name="latinName"
+              label="Latin Name"
+              rules={[
+                { required: true, message: "Please enter the Latin name" },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="bookName" label="Name of the Samhita">
+            <Form.Item
+              name="bookName"
+              label="Name of the Samhita"
+              rules={[
+                { required: true, message: "Please select the book name" },
+              ]}
+            >
               <Select>
-                {[
-                  "Charaka Samhita",
-                  "Shushruta Samhita",
-                  "Ashtang Hridaya",
-                  "Ashtang Samgraha",
-                ].map((book, index) => (
+                {bookNameOptions.map((book, index) => (
                   <Select.Option value={book} key={index}>
                     {book}
                   </Select.Option>
@@ -168,21 +196,13 @@ export default function CustomForm({
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="sthana" label="Sthana">
+            <Form.Item
+              name="sthana"
+              label="Sthana"
+              rules={[{ required: true, message: "Please select the sthana" }]}
+            >
               <Select>
-                {[
-                  "Chikitsa Sthana",
-                  "Indriya Sthana",
-                  "Kalpa Sthana",
-                  "Kalpa siddhi Sthana",
-                  "Kalpana Sthana",
-                  "Nidana Sthana",
-                  "Sharir Sthana",
-                  "Sidhi Sthana",
-                  "Sutra Sthana",
-                  "Uttar Tantra",
-                  "Vimana Sthana",
-                ].map((sthana, index) => (
+                {sthanaOptions.map((sthana, index) => (
                   <Select.Option value={sthana} key={index}>
                     {sthana}
                   </Select.Option>
@@ -191,60 +211,15 @@ export default function CustomForm({
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="chapterNumber" label="Adhyaya">
+            <Form.Item
+              name="chapterNumber"
+              label="Adhyaya"
+              rules={[
+                { required: true, message: "Please select the chapter number" },
+              ]}
+            >
               <Select>
-                {[
-                  "Chapter 1",
-                  "Chapter 2",
-                  "Chapter 3",
-                  "Chapter 4",
-                  "Chapter 5",
-                  "Chapter 6",
-                  "Chapter 7",
-                  "Chapter 8",
-                  "Chapter 9",
-                  "Chapter 10",
-                  "Chapter 11",
-                  "Chapter 12",
-                  "Chapter 13",
-                  "Chapter 14",
-                  "Chapter 15",
-                  "Chapter 16",
-                  "Chapter 17",
-                  "Chapter 18",
-                  "Chapter 19",
-                  "Chapter 20",
-                  "Chapter 21",
-                  "Chapter 22",
-                  "Chapter 23",
-                  "Chapter 24",
-                  "Chapter 25",
-                  "Chapter 26",
-                  "Chapter 27",
-                  "Chapter 28",
-                  "Chapter 29",
-                  "Chapter 30",
-                  "Chapter 31",
-                  "Chapter 32",
-                  "Chapter 33",
-                  "Chapter 34",
-                  "Chapter 35",
-                  "Chapter 36",
-                  "Chapter 37",
-                  "Chapter 38",
-                  "Chapter 39",
-                  "Chapter 40",
-                  "Chapter 41",
-                  "Chapter 42",
-                  "Chapter 43",
-                  "Chapter 44",
-                  "Chapter 45",
-                  "Chapter 46",
-                  "Chapter 47",
-                  "Chapter 48",
-                  "Chapter 49",
-                  "Chapter 50",
-                ].map((chapter, index) => (
+                {chapterNumberOptions.map((chapter, index) => (
                   <Select.Option value={chapter} key={index}>
                     {chapter}
                   </Select.Option>
@@ -255,12 +230,27 @@ export default function CustomForm({
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="verseNumber" label="Sutra">
+            <Form.Item
+              name="verseNumber"
+              label="Verse Number"
+              rules={[
+                { required: true, message: "Please enter the verse number" },
+              ]}
+            >
               <InputNumber size="large" style={{ width: "100%" }} />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="partOfPlantUsed" label="Part of Plant Used">
+            <Form.Item
+              name="partOfPlantUsed"
+              label="Part of Plant Used"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the part of plant used",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
@@ -270,6 +260,9 @@ export default function CustomForm({
             <Form.Item
               name="singleOrCombinationDrug"
               label="Single/Combination drug?"
+              rules={[
+                { required: true, message: "Please select the type of drug" },
+              ]}
             >
               <Select>
                 {["Single", "Combination", "Both", "Other"].map(
@@ -277,7 +270,7 @@ export default function CustomForm({
                     <Select.Option value={type} key={index}>
                       {type}
                     </Select.Option>
-                  ),
+                  )
                 )}
               </Select>
             </Form.Item>
@@ -286,6 +279,9 @@ export default function CustomForm({
             <Form.Item
               name="formulationAsSingleDrug"
               label="Formulation as a single drug"
+              rules={[
+                { required: true, message: "Please enter the formulation" },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -296,6 +292,9 @@ export default function CustomForm({
             <Form.Item
               name="formulationAsCombination"
               label="Formulation as a combination drug"
+              rules={[
+                { required: true, message: "Please enter the formulation" },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -304,6 +303,12 @@ export default function CustomForm({
             <Form.Item
               name="nameOfTheCombination"
               label="Name of the combination"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the name of the combination",
+                },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -311,19 +316,43 @@ export default function CustomForm({
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="usesAsSingleDrug" label="Uses as single drug">
+            <Form.Item
+              name="usesAsSingleDrug"
+              label="Uses as single drug"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the uses as single drug",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="usesAsCombination" label="Uses as combination">
+            <Form.Item
+              name="usesAsCombination"
+              label="Uses as combination"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the uses as combination",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="useExtOrInt" label="Use- INT/EXT">
+            <Form.Item
+              name="useExtOrInt"
+              label="Use- INT/EXT"
+              rules={[
+                { required: true, message: "Please select the use type" },
+              ]}
+            >
               <Select>
                 {["INT", "EXT"].map((type, index) => (
                   <Select.Option value={type} key={index}>
@@ -334,44 +363,93 @@ export default function CustomForm({
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="typeOfExtUse" label="Type of EXT use">
+            <Form.Item
+              name="typeOfExtUse"
+              label="Type of EXT use"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the type of external use",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="parenteralRoute" label="Parenteral Route">
+            <Form.Item
+              name="parenteralRoute"
+              label="Parenteral Route"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the parenteral route",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="anupana" label="Anupana">
+            <Form.Item
+              name="anupana"
+              label="Anupana"
+              rules={[{ required: true, message: "Please enter the anupana" }]}
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="sahapana" label="Sahapana/Sahopayogi Dravya">
+            <Form.Item
+              name="sahapana"
+              label="Sahapana/Sahopayogi Dravya"
+              rules={[{ required: true, message: "Please enter the sahapana" }]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="granthadikara" label="Granthadikara">
+            <Form.Item
+              name="granthadikara"
+              label="Granthadikara"
+              rules={[
+                { required: true, message: "Please enter the granthadikara" },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item name="rogadhikara" label="Rogadhikara">
+            <Form.Item
+              name="rogadhikara"
+              label="Rogadhikara"
+              rules={[
+                { required: true, message: "Please enter the rogadhikara" },
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col xs={24} sm={12}>
-            <Form.Item name="remarks" label="Remarks">
+            <Form.Item
+              name="remarks"
+              label="Remarks"
+              rules={[{ required: true, message: "Please enter the remarks" }]}
+            >
               <TextArea />
+            </Form.Item>
+          </Col>
+          <Col xs={24}>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" size="large" block>
+                Save
+              </Button>
             </Form.Item>
           </Col>
         </Row>
