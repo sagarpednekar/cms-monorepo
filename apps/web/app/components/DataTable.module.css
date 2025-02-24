@@ -1,0 +1,6 @@
+.font-italic {
+  font-style: italic;
+}
+.title-case{
+  text-transform: capitalize;
+}

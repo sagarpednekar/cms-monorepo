@@ -1,4 +1,11 @@
-export const columns = [
+interface IColums {
+  title: string;
+  dataIndex: string;
+  key: string;
+  order: number;
+  className?: string;
+}
+export const columns: IColums[] = [
   {
     title: "ID",
     dataIndex: "id",
