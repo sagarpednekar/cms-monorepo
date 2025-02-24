@@ -77,10 +77,10 @@ export default function DataTable({
 
   // state variables
   const filteredHeaders = [...columns.slice(0, 5), actionColumn].map(
-    (header, index) => ({
+    (header) => ({
       ...header,
       className: getColumnStyles(header.dataIndex),
-    })
+    }),
   );
 
   const [headers, setHeaders] = useState(filteredHeaders);
@@ -89,13 +89,13 @@ export default function DataTable({
     setHeaders(
       [
         ...columns.filter((header) =>
-          selectedHeaders.includes(header.dataIndex)
+          selectedHeaders.includes(header.dataIndex),
         ),
         actionColumn,
-      ].map((header, index) => ({
+      ].map((header) => ({
         ...header,
         className: getColumnStyles(header.dataIndex),
-      }))
+      })),
     );
   };
 
