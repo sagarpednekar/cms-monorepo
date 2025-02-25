@@ -7,7 +7,7 @@ import { columns, pageSize } from "../config";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+import styles from "./DataTable.module.css";
 const headerOptions = columns.map((column) => ({
   label: column.title,
   value: column.dataIndex,
@@ -26,6 +26,8 @@ export default function DataTable({
   refetch,
 }: DataTableProps) {
   const router = useRouter();
+
+  // api requets
   const handleEdit = (record: TableDataType) => {
     router.push(`/update-species?id=${record.id}`);
   };
@@ -34,6 +36,17 @@ export default function DataTable({
     axios.delete(`/api/species`, { data: { id: record.id } }).then(() => {
       if (refetch) refetch();
     });
+  };
+
+  const getColumnStyles = (header: string) => {
+    switch (header) {
+      case "latinName":
+        return styles["font-italic"];
+      case "drugName":
+        return styles["title-case"];
+      default:
+        return "";
+    }
   };
 
   const actionColumn = {
@@ -61,15 +74,29 @@ export default function DataTable({
       </Space>
     ),
   };
-  const [headers, setHeaders] = useState([
-    ...columns.slice(0, 5),
-    actionColumn,
-  ]);
+
+  // state variables
+  const filteredHeaders = [...columns.slice(0, 5), actionColumn].map(
+    (header) => ({
+      ...header,
+      className: getColumnStyles(header.dataIndex),
+    }),
+  );
+
+  const [headers, setHeaders] = useState(filteredHeaders);
+
   const filterTableData = (selectedHeaders: string[]) => {
-    setHeaders([
-      ...columns.filter((header) => selectedHeaders.includes(header.dataIndex)),
-      actionColumn,
-    ]);
+    setHeaders(
+      [
+        ...columns.filter((header) =>
+          selectedHeaders.includes(header.dataIndex),
+        ),
+        actionColumn,
+      ].map((header) => ({
+        ...header,
+        className: getColumnStyles(header.dataIndex),
+      })),
+    );
   };
 
   return (
