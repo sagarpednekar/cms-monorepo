@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     }
     const data = await prisma.species.findMany({
       orderBy: {
-        createdAt: "desc",
+        id: "asc"
       },
     });
     return NextResponse.json({
